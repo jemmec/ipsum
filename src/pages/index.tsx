@@ -17,6 +17,7 @@ export default function Index() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.content}>
+          <div className={styles.title}>ipsum</div>
           <Ipsum length='word' />
           <Ipsum length='sentence' />
           <Ipsum length='paragraph' />
@@ -27,12 +28,14 @@ export default function Index() {
 }
 
 export function Ipsum({ length }: { length: LengthType }) {
-  const { isFetching, ipsum } = useLorem(length);
-  if (isFetching) return <div className="fetching">{`fetching...`}</div>;
+  const { isFetching, ipsum, get } = useLorem(length);
   return (
     <>
-      <div className={`${styles.ipsum} ${styles[length]}`}>
-        {ipsum}
+      <div className={styles.item}>
+        <div className={`${styles.ipsum} ${styles[length]}`}>
+          {isFetching ? 'Fetching...' : ipsum}
+        </div>
+        <button onClick={get}>Roll</button>
       </div>
     </>
   )
