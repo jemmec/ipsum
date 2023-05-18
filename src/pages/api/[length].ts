@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { LoremIpsum } from "lorem-ipsum";
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-    const { length } = req.query;
+export default (request: NextApiRequest, response: NextApiResponse) => {
+    const { length } = request.query;
 
     const lorem = new LoremIpsum({
         sentencesPerParagraph: {
@@ -17,19 +17,19 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
     switch (length) {
         case 'word': {
-            res.status(200).json({ ipsum: lorem.generateWords(1) })
+            response.status(200).json({ response: lorem.generateWords(1) })
             break;
         }
         case 'sentence': {
-            res.status(200).json({ ipsum: lorem.generateSentences(1) })
+            response.status(200).json({ response: lorem.generateSentences(1) })
             break;
         }
         case 'paragraph': {
-            res.status(200).json({ ipsum: lorem.generateParagraphs(1) })
+            response.status(200).json({ response: lorem.generateParagraphs(1) })
             break;
         }
         default: {
-            res.status(404).json({ message: `${length} is not a length, please use 'word', 'sentence', or 'paragraph'.` })
+            response.status(404).json({ message: `${length} is not a length, please use 'word', 'sentence', or 'paragraph'.` })
         }
     }
 }
