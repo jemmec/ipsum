@@ -3,9 +3,11 @@ import Image from 'next/image'
 import { Caveat, Inter } from 'next/font/google'
 import styles from '@/styles/Index.module.css'
 import { LengthType, useLorem } from '@/hooks/use-lorem'
+import { RepoForkedIcon, SyncIcon, ZapIcon } from '@primer/octicons-react'
+
 
 const inter = Inter({ subsets: ['latin'] });
-const caveat = Caveat({subsets: ['latin']});
+const caveat = Caveat({ subsets: ['latin'] });
 
 export default function Index() {
   return (
@@ -18,10 +20,12 @@ export default function Index() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.content}>
-          <div className={`${styles.title} ${caveat.className}`}>ipsum</div>
-          <Ipsum length='word' />
-          <Ipsum length='sentence' />
-          <Ipsum length='paragraph' />
+          <div className={styles.viewport}>
+            <div className={`${styles.title} ${caveat.className}`}>ipsum</div>
+            <Ipsum length='word' />
+            <Ipsum length='sentence' />
+            <Ipsum length='paragraph' />
+          </div>
         </div>
       </main>
     </>
@@ -30,13 +34,17 @@ export default function Index() {
 
 export function Ipsum({ length }: { length: LengthType }) {
   const { isFetching, ipsum, get } = useLorem(length);
+  function handleCopy() {
+    if (!isFetching && ipsum)
+      navigator.clipboard.writeText(ipsum);
+  }
   return (
     <>
       <div className={styles.item}>
-        <div className={`${styles.ipsum} ${styles[length]}`}>
+        <div className={`${styles.ipsum} ${styles[length]}`} onClick={handleCopy}>
           {isFetching ? 'Fetching...' : ipsum}
         </div>
-        <button onClick={get}>Roll</button>
+        <button onClick={get}><SyncIcon size={26} /></button>
       </div>
     </>
   )
