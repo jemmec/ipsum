@@ -19,7 +19,7 @@
 
 .title{
   align-self: center;
-  font-size: 64px;
+  font-size: 86px;
 }
 
 .item{
@@ -27,7 +27,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
 }
 
 .ipsum{
@@ -53,4 +53,12 @@
   min-width: 45px;
   height: 45px;
   min-height: 45px;
+
+  cursor: pointer;
+
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: rgb(61, 60, 61);
+
+  color: rgb(240,240,240);
 }

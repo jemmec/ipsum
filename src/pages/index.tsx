@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Caveat, Inter } from 'next/font/google'
 import styles from '@/styles/Index.module.css'
 import { LengthType, useLorem } from '@/hooks/use-lorem'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
+const caveat = Caveat({subsets: ['latin']});
 
 export default function Index() {
   return (
@@ -17,7 +18,7 @@ export default function Index() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.content}>
-          <div className={styles.title}>ipsum</div>
+          <div className={`${styles.title} ${caveat.className}`}>ipsum</div>
           <Ipsum length='word' />
           <Ipsum length='sentence' />
           <Ipsum length='paragraph' />
