@@ -4,6 +4,7 @@ import { Caveat, Inter } from 'next/font/google'
 import styles from '@/styles/Index.module.css'
 import { LengthType, useLorem } from '@/hooks/use-lorem'
 import { RepoForkedIcon, SyncIcon, ZapIcon } from '@primer/octicons-react'
+import { useState } from 'react'
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -34,17 +35,23 @@ export default function Index() {
 
 export function Ipsum({ length }: { length: LengthType }) {
   const { isFetching, ipsum, get } = useLorem(length);
+  const [copied, setCopied] = useState<boolean>(false);
   function handleCopy() {
-    if (!isFetching && ipsum)
+    if (!isFetching && ipsum) {
+      setCopied(true);
       navigator.clipboard.writeText(ipsum);
+    }
   }
   return (
     <>
       <div className={styles.item}>
-        <div className={`${styles.ipsum} ${styles[length]}`} onClick={handleCopy}>
+        <div className={`${styles.ipsum} ${copied ? styles.animate : ''} ${styles[length]}`} onClick={handleCopy}>
           {isFetching ? 'Fetching...' : ipsum}
         </div>
-        <button onClick={get}><SyncIcon size={26} /></button>
+        <button onClick={() => {
+          setCopied(false);
+          get();
+        }}><SyncIcon size={26} /></button>
       </div>
     </>
   )
