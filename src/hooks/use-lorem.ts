@@ -19,7 +19,7 @@ export function useLorem(length: LengthType): Lorem {
 
   function get() {
     setIsFetching(true);
-    fetch(`/api/${length}`)
+    fetch(`/ipsum/api/${length}`)
       .then(data => data.json())
       .then((res) => setIpsum((res as Response).response))
       .catch(console.error)
